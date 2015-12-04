@@ -45,6 +45,8 @@ co(function * (){
 });
 ```
 
+Though these examples don't show it the lib `co` returns a promise.
+
 API
 ---
 
