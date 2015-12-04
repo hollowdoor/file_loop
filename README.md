@@ -50,7 +50,7 @@ Though these examples don't show it the lib `co` returns a promise.
 API
 ---
 
-### finder(array) -> promise
+### finder(array, options) -> promise
 
 Returns a promise that resolves to a function.
 
@@ -59,6 +59,18 @@ The array passed to finder can be one of these string values:
 -	file name
 -	regular expression
 -	glob string
+
+### options
+
+Options should be an object with these fields:
+
+#### options.ignore = Array
+
+An array of files to not include in the set of found files. These are the same value types as the first argument to the `finder` function.
+
+#### options.cwd = String
+
+The directory to **find** files in. The default is `process.cwd`.
 
 Look at [multimatcher](https://www.npmjs.com/package/multimatcher) for more information.
 

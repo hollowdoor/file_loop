@@ -6,9 +6,15 @@ git remote add origin https://github.com/hollowdoor/file_loop.git
 git push -u origin master
 */
 
-module.exports = function(list, cwd){
-    if(typeof dir !== 'string'){
-        dir = process.cwd();
+module.exports = function(list, options){
+    options = options || {};
+    var dir = process.cwd(), ignore = null;
+    if(typeof options.cwd === 'string'){
+        dir = options.cwd;
+    }
+
+    if(Object.prototype.toString.call(options.ignore) === '[object Array]'){
+        ignore = new Multimatcher(options.ignore);
     }
 
     return new Promise(function(resolve, reject){
@@ -23,18 +29,26 @@ module.exports = function(list, cwd){
 
             found = matcher.find(files);
 
-            resolve(function(){
+            function getFileInfo(){
                 if(++index === found.length){
                     return Promise.resolve(null);
                 }
+
                 var name = found[index];
+
+                if(ignore && ignore.test(name)){
+                    return getFileInfo();
+                }
+
                 return new Promise(function(resolve, reject){
                     fs.lstat(name, function(stats){
                         resolve({name: name, stats: stats});
                     });
 
                 });
-            });
+            }
+
+            resolve(getFileInfo);
         });
     });
 };
