@@ -1,6 +1,11 @@
 var Multimatcher = require('multimatcher'),
     fs = require('fs');
 
+/*
+git remote add origin https://github.com/hollowdoor/file_loop.git
+git push -u origin master
+*/
+
 module.exports = function(list, cwd){
     if(typeof dir !== 'string'){
         dir = process.cwd();
