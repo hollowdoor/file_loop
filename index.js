@@ -29,7 +29,7 @@ module.exports = function(list, cwd){
                 }
                 var name = found[index];
                 return new Promise(function(resolve, reject){
-                    fs.stat(name, function(stats){
+                    fs.lstat(name, function(stats){
                         resolve({name: name, stats: stats});
                     });
 
