@@ -16,15 +16,17 @@
   "author": "Quentin Engles <hollowdoor99@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "mime": "^1.3.4",
+    "mmmagic": "^0.4.1",
     "multimatcher": "^1.0.1"
   },
   "devDependencies": {
     "cp-omen": "0.0.1",
     "cpr-omen": "^1.0.0",
     "create-coroutine": "^1.0.1"
-},
-"repository": {
-  "type": "git",
-  "url": "https://github.com/hollowdoor/file_loop.git"
-}
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hollowdoor/file_loop.git"
+  }
 }

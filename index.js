@@ -30,7 +30,7 @@ module.exports = function(list, options){
             found = matcher.find(files);
 
             function getFileInfo(){
-                if(++index === found.length){
+                if(++index >= found.length){
                     return Promise.resolve(null);
                 }
 
