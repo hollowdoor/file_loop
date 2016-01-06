@@ -6,6 +6,11 @@ Install
 
 `npm install --save file-loop`
 
+News
+----
+
+`file-loop` now finds directories, sub-directories, and files in those sub-directories. Other than that the api is basically the same.
+
 Usage
 -----
 
@@ -21,7 +26,7 @@ co(function * (){
     var find = yield finder(['*.js']), file;
 
     while(file = yield find()){
-        yield copy(file.name, path.join('dest', file.name));
+        yield copy(file.path, path.join('dest', file.name));
     }
 });
 ```
@@ -37,10 +42,13 @@ co(function * (){
 
     //Calling find returns a promise that resolves to an object.
     while(file = yield find()){
+        //The fields
+        //file.name = the file name
+        //file.path = the full path of the file
+        //file.stats = the stats for the file
+        //file.root = the cwd of the file
         //The object has a name field, and a stats field.
-        //Here the name field is use to get the name of the current file,
-        //and pass that name to the copy function which also returns a promise..
-        yield copy(file.name, path.join('dest', file.name));
+        yield copy(file.path, path.join('dest', file.name));
     }
 });
 ```
@@ -76,9 +84,12 @@ Look at [multimatcher](https://www.npmjs.com/package/multimatcher) for more info
 
 ### find() -> promise
 
-Returns a promise that resolves to an object with the fields `name`, and `stats`.
+Returns a promise that resolves to an object with these fields.
 
-The `stats` field is the same object you'd get from calling `fs.stat`.
+-	file.name = the file name
+-	file.path = the full path of the file
+-	file.stats = the stats for the file
+-	file.root = the cwd of the file
 
 When no there are no more files then the promise resolves to `null` which will stop a loop.
 
@@ -97,7 +108,7 @@ async function copyScripts (){
     let find = await finder(['*.js']);
 
     while(let file = await find()){
-        await copy(file.name, path.join('dest', file.name));
+        await copy(file.path, path.join('dest', file.name));
     }
 }
 
