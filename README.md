@@ -9,7 +9,11 @@ Install
 News
 ----
 
-`file-loop` now finds directories, sub-directories, and files in those sub-directories. Other than that the api is basically the same.
+`file-loop` now finds directories, sub-directories, and files in those sub-directories.
+
+There is also the new path fields, and root returned by the promise.
+
+Other than that the api is basically the same.
 
 Usage
 -----
@@ -47,7 +51,6 @@ co(function * (){
         //file.path = the full path of the file
         //file.stats = the stats for the file
         //file.root = the cwd of the file
-        //The object has a name field, and a stats field.
         yield copy(file.path, path.join('dest', file.name));
     }
 });
@@ -86,12 +89,12 @@ Look at [multimatcher](https://www.npmjs.com/package/multimatcher) for more info
 
 Returns a promise that resolves to an object with these fields.
 
--	file.name = the file name
+-	file.name = the basename of the file
 -	file.path = the full path of the file
 -	file.stats = the stats for the file
 -	file.root = the cwd of the file
 
-When no there are no more files then the promise resolves to `null` which will stop a loop.
+When there are no more files then the promise resolves to `null` which will stop a loop.
 
 Possible Usage
 --------------
